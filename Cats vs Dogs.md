@@ -14,7 +14,7 @@ import matplotlib.image as mpimg
 
 
 ```python
-base_dir = "D:\hrutik\Documents\Projects\Dataset\CatsandDogs"
+base_dir = "Dataset\CatsandDogs"
 
 train_dir = os.path.join(base_dir, 'train')
 validation_dir = os.path.join(base_dir, 'validation')
@@ -383,7 +383,30 @@ plt.title ('Training and validation loss'   )
     
 
 
+### Model save
+
 
 ```python
+if os.path.isfile('models\cat_vs_dog_model.h5') is False:
+    model.save('models\cat_vs_dog_model.h5')
+```
 
+### To test model with new images
+
+
+```python
+from keras.preprocessing import image
+from keras.models import load_model
+
+IMG_SIZE = 150
+file_path = r''
+test_image = image.load_img(file_path, target_size=(IMG_SIZE,IMG_SIZE))
+ 
+test_image = image.img_to_array(test_image)
+test_image = np.expand_dims(test_image, axis=0)
+model = load_model('') #loaction of the model file(.h5)
+
+result = model.predict(test_image)
+index = np.argmax(result)
+print(index)
 ```
